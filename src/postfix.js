@@ -1,14 +1,12 @@
 var Mexp = require('./lexer.js')
 
-Mexp.prototype.toPostfix = function () {
+Mexp.toPostfix = function (lexed) {
   'use strict'
-  if (typeof this.message !== 'undefined') {
-    return this
-  }
+  if (lexed instanceof SyntaxError) return lexed
   var post = []
   var elem, popped, prep, pre, ele
   var stack = []
-  var arr = this.lexed
+  var arr = lexed
   for (var i = 0; i < arr.length; i++) {
     if (arr[i].type === 1 || arr[i].type === 3 || arr[i].type === 13) { // if token is number,constant,or n(which is also a special constant in our case)
       if (arr[i].type === 1) {
@@ -45,7 +43,6 @@ Mexp.prototype.toPostfix = function () {
       }
     }
   }
-  this.postfixed = post
-  return this
+  return post
 }
 module.exports = Mexp

@@ -150,7 +150,7 @@ Mexp.addToken = function (tokens) {
     }
   }
 }
-Mexp.prototype.lex = function (inp, tokens) {
+Mexp.lex = function (inp, tokens) {
   'use strict'
   var changeSignObj = {
     value: Mexp.math.changeSign,
@@ -201,8 +201,7 @@ Mexp.prototype.lex = function (inp, tokens) {
     }
     i += key.length - 1
     if (key === '') {
-      this.message = 'Can\'t understand after ' + inpStr.slice(i)
-      return this
+      return new SyntaxError('Can\'t understand after ' + inpStr.slice(i))
     }
     var index = token.indexOf(key)
     var cToken = key
@@ -216,20 +215,17 @@ Mexp.prototype.lex = function (inp, tokens) {
       if (ptc[j] === 0) {
         if ([0, 2, 3, 5, 9, 11, 12, 13].indexOf(cType) !== -1) {
           if (allowed[cType] !== true) {
-            this.message = key + ' is not allowed after ' + prevKey
-            return this
+            return new SyntaxError(key + ' is not allowed after ' + prevKey)
           }
           str.push(closingParObj)
           allowed = type1
           asterick = type3Asterick
-          ptcLastIndex--
-          ptc[ptcLastIndex]--
+          ptc[--ptcLastIndex]--
         }
       } else break
     }
     if (allowed[cType] !== true) {
-      this.message = key + ' is not allowed after ' + prevKey
-      return this
+      return new SyntaxError(key + ' is not allowed after ' + prevKey)
     }
     if (asterick[cType] === true) {
       cType = 2
@@ -279,8 +275,7 @@ Mexp.prototype.lex = function (inp, tokens) {
       str.push(obj)
     } else if (cType === 5) {
       if (!bracToClose) {
-        this.message = 'Closing parenthesis are more than opening one, wait What!!!'
-        return this
+        return new SyntaxError('Closing parenthesis are more than opening one, wait What!!!')
       }
       while (pcounter--) { // loop over ptc
         str.push(closingParObj)
@@ -292,8 +287,7 @@ Mexp.prototype.lex = function (inp, tokens) {
       str.push(obj)
     } else if (cType === 6) {
       if (pre.hasDec) {
-        this.message = 'Two decimals are not allowed in one number'
-        return this
+        return new SyntaxError('Two decimals are not allowed in one number')
       }
       if (pre.type !== 1) {
         pre = {
@@ -380,14 +374,12 @@ Mexp.prototype.lex = function (inp, tokens) {
     } else break  // if it is not zero so before ptc also cant be zero
   }
   if (allowed[5] !== true) {
-    this.message = 'complete the expression'
-    return this
+    return new SyntaxError('complete the expression')
   }
   while (bracToClose--) {
     str.push(closingParObj)
   }
   str.push(closingParObj)
-  this.lexed = str
-  return this
+  return str
 }
 module.exports = Mexp

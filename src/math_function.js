@@ -1,7 +1,4 @@
-var Mexp = function () {
-  
-}
-
+var Mexp = {}
 Mexp.math = {
   isDegree: true, // mode of calculator
   acos: function (x) {
@@ -81,7 +78,7 @@ Mexp.math = {
   Pi: function (low, high, ex) {
     var pro = 1
     for (var i = low; i <= high; i++) {
-      pro *= Number(ex.postfixEval({
+      pro *= Number(Mexp.postfixEval(ex, {
         n: i
       }))
     }
@@ -97,7 +94,7 @@ Mexp.math = {
   sigma: function (low, high, ex) {
     var sum = 0
     for (var i = low; i <= high; i++) {
-      sum += Number(ex.postfixEval({
+      sum += Number(Mexp.postfixEval(ex, {
         n: i
       }))
     }

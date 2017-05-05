@@ -2,47 +2,76 @@
  Dated:2017-05-05 */
 
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.mexp = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Mexp=require('./postfix_evaluator.js');
-Mexp.prototype.formulaEval = function () {
-	"use strict";
-	var stack=[],pop1,pop2,pop3;
-	var disp=[];
-	var temp='';
-	var arr=this.postfixed;
-	for(var i=0;i<arr.length;i++){
-		if(arr[i].type===1||arr[i].type===3){
-			disp.push({value:arr[i].type===3?arr[i].show:arr[i].value,type:1});
-		}
-		else if(arr[i].type===13){
-			disp.push({value:arr[i].show,type:1});
-		}
-		else if(arr[i].type===0){
-			disp[disp.length-1]={value:arr[i].show+(arr[i].show!="-"?"(":"")+disp[disp.length-1].value+(arr[i].show!="-"?")":""),type:0};
-		}
-		else if(arr[i].type===7){
-			disp[disp.length-1]={value:(disp[disp.length-1].type!=1?"(":"")+disp[disp.length-1].value+(disp[disp.length-1].type!=1?")":"")+arr[i].show,type:7};
-		}
-		else if(arr[i].type===10){
-			pop1=disp.pop();
-			pop2=disp.pop();
-			if(arr[i].show==='P'||arr[i].show==='C')disp.push({value:"<sup>"+pop2.value+"</sup>"+arr[i].show+"<sub>"+pop1.value+"</sub>",type:10});
-			else disp.push({value:(pop2.type!=1?"(":"")+pop2.value+(pop2.type!=1?")":"")+"<sup>"+pop1.value+"</sup>",type:1});
-		}
-		else if(arr[i].type===2||arr[i].type===9){
-			pop1=disp.pop();
-			pop2=disp.pop();
-			disp.push({value:(pop2.type!=1?"(":"")+pop2.value+(pop2.type!=1?")":"")+arr[i].show+(pop1.type!=1?"(":"")+pop1.value+(pop1.type!=1?")":""),type:arr[i].type});
-		}
-		else if(arr[i].type===12){
-			pop1=disp.pop();
-			pop2=disp.pop();
-			pop3=disp.pop();
-			disp.push({value:arr[i].show+"("+pop3.value+","+pop2.value+","+pop1.value+")",type:12});
-		}
-	}
-	return disp[0].value;
-};
-module.exports= Mexp;
+var Mexp = require('./postfix_evaluator.js')
+Mexp.formulaEval = function (postfixed) {
+  'use strict'
+  if (postfixed instanceof SyntaxError) return postfixed
+  var pop1, pop2, pop3
+  var disp = []
+  var arr = postfixed
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i].type === 1 || arr[i].type === 3) {
+      disp.push({
+        value: arr[i].type === 3 ? arr[i].show : arr[i].value,
+        type: 1
+      })
+    } else if (arr[i].type === 13) {
+      disp.push({
+        value: arr[i].show,
+        type: 1
+      })
+    } else if (arr[i].type === 0) {
+      disp[disp.length - 1] = {
+        value: arr[i].show + (arr[i].show !== '-' ? '(' : '') + disp[disp.length - 1].value + (arr[i].show !== '-' ? ')' : ''),
+        type: 0
+      }
+    } else if (arr[i].type === 7) {
+      disp[disp.length - 1] = {
+        value: (disp[disp.length - 1].type !== 1 ? '(' : '') + disp[disp.length - 1].value + (disp[disp.length - 1].type !== 1 ? ')' : '') + arr[i].show,
+        type: 7
+      }
+    } else if (arr[i].type === 10) {
+      pop1 = disp.pop()
+      pop2 = disp.pop()
+      if (arr[i].show === 'P' || arr[i].show === 'C') {
+        disp.push({
+          value: '<sup>' + pop2.value + '</sup>' + arr[i].show + '<sub>' + pop1.value + '</sub>',
+          type: 10
+        })
+      } else {
+        disp.push({
+          value: (pop2.type !== 1 ? '(' : '') + pop2.value + (pop2.type !== 1 ? ')' : '') + '<sup>' + pop1.value + '</sup>',
+          type: 1
+        })
+      }
+    } else if (arr[i].type === 2 || arr[i].type === 9) {
+      pop1 = disp.pop()
+      pop2 = disp.pop()
+      disp.push({
+        value: (pop2.type !== 1 ? '(' : '') + pop2.value + (pop2.type !== 1 ? ')' : '') + arr[i].show + (pop1.type !== 1 ? '(' : '') + pop1.value + (pop1.type !== 1 ? ')' : ''),
+        type: arr[i].type
+      })
+    } else if (arr[i].type === 12) {
+      pop1 = disp.pop()
+      pop2 = disp.pop()
+      pop3 = disp.pop()
+      disp.push({
+        value: arr[i].show + '(' + pop3.value + ',' + pop2.value + ',' + pop1.value + ')',
+        type: 12
+      })
+    }
+  }
+  return disp[0].value
+}
+Mexp.feval = function (str, tokens) {
+  if (typeof tokens === 'undefined') {
+    return Mexp.formulaEval(Mexp.toPostfix(Mexp.lex(str)))
+  } else {
+    return Mexp.formulaEval(Mexp.toPostfix(Mexp.lex(str, tokens)))
+  }
+}
+module.exports = Mexp
+
 },{"./postfix_evaluator.js":5}],2:[function(require,module,exports){
 var Mexp = require('./math_function.js')
 var token = ['sin', 'cos', 'tan', 'pi', '(', ')', 'P', 'C',
@@ -196,7 +225,7 @@ Mexp.addToken = function (tokens) {
     }
   }
 }
-Mexp.prototype.lex = function (inp, tokens) {
+Mexp.lex = function (inp, tokens) {
   'use strict'
   var changeSignObj = {
     value: Mexp.math.changeSign,
@@ -247,8 +276,7 @@ Mexp.prototype.lex = function (inp, tokens) {
     }
     i += key.length - 1
     if (key === '') {
-      this.message = 'Can\'t understand after ' + inpStr.slice(i)
-      return this
+      return new SyntaxError('Can\'t understand after ' + inpStr.slice(i))
     }
     var index = token.indexOf(key)
     var cToken = key
@@ -262,20 +290,17 @@ Mexp.prototype.lex = function (inp, tokens) {
       if (ptc[j] === 0) {
         if ([0, 2, 3, 5, 9, 11, 12, 13].indexOf(cType) !== -1) {
           if (allowed[cType] !== true) {
-            this.message = key + ' is not allowed after ' + prevKey
-            return this
+            return new SyntaxError(key + ' is not allowed after ' + prevKey)
           }
           str.push(closingParObj)
           allowed = type1
           asterick = type3Asterick
-          ptcLastIndex--
-          ptc[ptcLastIndex]--
+          ptc[--ptcLastIndex]--
         }
       } else break
     }
     if (allowed[cType] !== true) {
-      this.message = key + ' is not allowed after ' + prevKey
-      return this
+      return new SyntaxError(key + ' is not allowed after ' + prevKey)
     }
     if (asterick[cType] === true) {
       cType = 2
@@ -325,8 +350,7 @@ Mexp.prototype.lex = function (inp, tokens) {
       str.push(obj)
     } else if (cType === 5) {
       if (!bracToClose) {
-        this.message = 'Closing parenthesis are more than opening one, wait What!!!'
-        return this
+        return new SyntaxError('Closing parenthesis are more than opening one, wait What!!!')
       }
       while (pcounter--) { // loop over ptc
         str.push(closingParObj)
@@ -338,8 +362,7 @@ Mexp.prototype.lex = function (inp, tokens) {
       str.push(obj)
     } else if (cType === 6) {
       if (pre.hasDec) {
-        this.message = 'Two decimals are not allowed in one number'
-        return this
+        return new SyntaxError('Two decimals are not allowed in one number')
       }
       if (pre.type !== 1) {
         pre = {
@@ -426,23 +449,18 @@ Mexp.prototype.lex = function (inp, tokens) {
     } else break  // if it is not zero so before ptc also cant be zero
   }
   if (allowed[5] !== true) {
-    this.message = 'complete the expression'
-    return this
+    return new SyntaxError('complete the expression')
   }
   while (bracToClose--) {
     str.push(closingParObj)
   }
   str.push(closingParObj)
-  this.lexed = str
-  return this
+  return str
 }
 module.exports = Mexp
 
 },{"./math_function.js":3}],3:[function(require,module,exports){
-var Mexp = function () {
-  
-}
-
+var Mexp = {}
 Mexp.math = {
   isDegree: true, // mode of calculator
   acos: function (x) {
@@ -522,7 +540,7 @@ Mexp.math = {
   Pi: function (low, high, ex) {
     var pro = 1
     for (var i = low; i <= high; i++) {
-      pro *= Number(ex.postfixEval({
+      pro *= Number(Mexp.postfixEval(ex, {
         n: i
       }))
     }
@@ -538,7 +556,7 @@ Mexp.math = {
   sigma: function (low, high, ex) {
     var sum = 0
     for (var i = low; i <= high; i++) {
-      sum += Number(ex.postfixEval({
+      sum += Number(Mexp.postfixEval(ex, {
         n: i
       }))
     }
@@ -570,15 +588,13 @@ module.exports = Mexp
 },{}],4:[function(require,module,exports){
 var Mexp = require('./lexer.js')
 
-Mexp.prototype.toPostfix = function () {
+Mexp.toPostfix = function (lexed) {
   'use strict'
-  if (typeof this.message !== 'undefined') {
-    return this
-  }
+  if (lexed instanceof SyntaxError) return lexed
   var post = []
   var elem, popped, prep, pre, ele
   var stack = []
-  var arr = this.lexed
+  var arr = lexed
   for (var i = 0; i < arr.length; i++) {
     if (arr[i].type === 1 || arr[i].type === 3 || arr[i].type === 13) { // if token is number,constant,or n(which is also a special constant in our case)
       if (arr[i].type === 1) {
@@ -615,24 +631,21 @@ Mexp.prototype.toPostfix = function () {
       }
     }
   }
-  this.postfixed = post
-  return this
+  return post
 }
 module.exports = Mexp
 
 },{"./lexer.js":2}],5:[function(require,module,exports){
 var Mexp = require('./postfix.js')
-Mexp.prototype.postfixEval = function (UserDefined) {
+Mexp.postfixEval = function (postfixed, UserDefined) {
   'use strict'
-  if (typeof this.message !== 'undefined') {
-    return new SyntaxError(this.message)
-  }
+  if (postfixed instanceof SyntaxError) return postfixed
   UserDefined = UserDefined || {}
   UserDefined.PI = Math.PI
   UserDefined.E = Math.E
   var stack = []
   var pop1, pop2, pop3
-  var arr = this.postfixed
+  var arr = postfixed
   var bool = (typeof UserDefined.n !== 'undefined')
   for (var i = 0; i < arr.length; i++) {
     if (arr[i].type === 1) {
@@ -701,11 +714,9 @@ Mexp.prototype.postfixEval = function (UserDefined) {
       }
       pop2 = stack.pop()
       pop3 = stack.pop()
-      var temp = new Mexp()
-      temp.postfixed = pop1
       stack.push({
         type: 1,
-        value: arr[i].value(pop3.value, pop2.value, temp)
+        value: arr[i].value(pop3.value, pop2.value, pop1)
       })
     } else if (arr[i].type === 13) {
       if (bool) {
@@ -719,27 +730,22 @@ Mexp.prototype.postfixEval = function (UserDefined) {
   if (stack.length > 1) {
     return
   }
-  this.value = stack[0].value > 1000000000000000 ? 'Infinity' : parseFloat(stack[0].value.toFixed(15))
-  return this.value
+  return stack[0].value > 1000000000000000 ? 'Infinity' : parseFloat(stack[0].value.toFixed(15))
 }
 // for back compatibility
 Mexp.eval = function (str, tokens, obj) {
   if (typeof tokens === 'undefined') {
-    return (new Mexp).lex(str).toPostfix().postfixEval()
+    return Mexp.postfixEval(Mexp.toPostfix(Mexp.lex(str)))
   } else if (typeof obj === 'undefined') {
     if (typeof tokens.length !== 'undefined') {
-      return (new Mexp).lex(str, tokens).toPostfix().postfixEval()
+      return Mexp.postfixEval(Mexp.toPostfix(Mexp.lex(str, tokens)))
     } else {
-      return (new Mexp).lex(str).toPostfix().postfixEval(tokens)
+      return Mexp.postfixEval(Mexp.toPostfix(Mexp.lex(str)), tokens)
     }
   } else {
-    return (new Mexp).lex(str, tokens).toPostfix().postfixEval(obj)
+    return Mexp.postfixEval(Mexp.toPostfix(Mexp.lex(str, tokens)), obj)
   }
 }
-// var t = 100000
-// while (t--) {
-//  Mexp.eval('2+3-40*78-34/2+100')
-// }
 module.exports = Mexp
 
 },{"./postfix.js":4}]},{},[1])(1)

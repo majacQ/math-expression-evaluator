@@ -1,15 +1,13 @@
 var Mexp = require('./postfix.js')
-Mexp.prototype.postfixEval = function (UserDefined) {
+Mexp.postfixEval = function (postfixed, UserDefined) {
   'use strict'
-  if (typeof this.message !== 'undefined') {
-    return new SyntaxError(this.message)
-  }
+  if (postfixed instanceof SyntaxError) return postfixed
   UserDefined = UserDefined || {}
   UserDefined.PI = Math.PI
   UserDefined.E = Math.E
   var stack = []
   var pop1, pop2, pop3
-  var arr = this.postfixed
+  var arr = postfixed
   var bool = (typeof UserDefined.n !== 'undefined')
   for (var i = 0; i < arr.length; i++) {
     if (arr[i].type === 1) {
@@ -78,11 +76,9 @@ Mexp.prototype.postfixEval = function (UserDefined) {
       }
       pop2 = stack.pop()
       pop3 = stack.pop()
-      var temp = new Mexp()
-      temp.postfixed = pop1
       stack.push({
         type: 1,
-        value: arr[i].value(pop3.value, pop2.value, temp)
+        value: arr[i].value(pop3.value, pop2.value, pop1)
       })
     } else if (arr[i].type === 13) {
       if (bool) {
@@ -96,25 +92,20 @@ Mexp.prototype.postfixEval = function (UserDefined) {
   if (stack.length > 1) {
     return
   }
-  this.value = stack[0].value > 1000000000000000 ? 'Infinity' : parseFloat(stack[0].value.toFixed(15))
-  return this.value
+  return stack[0].value > 1000000000000000 ? 'Infinity' : parseFloat(stack[0].value.toFixed(15))
 }
 // for back compatibility
 Mexp.eval = function (str, tokens, obj) {
   if (typeof tokens === 'undefined') {
-    return (new Mexp).lex(str).toPostfix().postfixEval()
+    return Mexp.postfixEval(Mexp.toPostfix(Mexp.lex(str)))
   } else if (typeof obj === 'undefined') {
     if (typeof tokens.length !== 'undefined') {
-      return (new Mexp).lex(str, tokens).toPostfix().postfixEval()
+      return Mexp.postfixEval(Mexp.toPostfix(Mexp.lex(str, tokens)))
     } else {
-      return (new Mexp).lex(str).toPostfix().postfixEval(tokens)
+      return Mexp.postfixEval(Mexp.toPostfix(Mexp.lex(str)), tokens)
     }
   } else {
-    return (new Mexp).lex(str, tokens).toPostfix().postfixEval(obj)
+    return Mexp.postfixEval(Mexp.toPostfix(Mexp.lex(str, tokens)), obj)
   }
 }
-// var t = 100000
-// while (t--) {
-//  Mexp.eval('2+3-40*78-34/2+100')
-// }
 module.exports = Mexp
