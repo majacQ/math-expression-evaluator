@@ -78,6 +78,7 @@ describe('Testing Unit', function () {
   });
 
   it('check when two parenthesis less functions are consecutive on one parameter', function () {
+    console.log(a.lex("sinint2.5").value)
     assert.equal(a.lex("sinint2.5").toPostfix().postfixEval(),a.lex("sin(int(2.5))").toPostfix().postfixEval());
   });
 

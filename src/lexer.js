@@ -1,10 +1,4 @@
 var Mexp = require('./math_function.js')
-function inc (arr, val) {
-  for (var i = 0; i < arr.length; i++) {
-    arr[i] += val
-  }
-  return arr
-}
 var token = ['sin', 'cos', 'tan', 'pi', '(', ')', 'P', 'C',
   'asin', 'acos', 'atan', '7', '8', '9', 'int',
   'cosh', 'acosh', 'ln', '^', 'root', '4', '5', '6', '/', '!',
@@ -225,7 +219,7 @@ Mexp.lex = function (inp, tokens) {
           str.push(closingParObj)
           allowed = type1
           asterick = type3Asterick
-          inc(ptc, -1).pop()
+          ptc.pop()
         }
       } else break
     }
@@ -248,13 +242,13 @@ Mexp.lex = function (inp, tokens) {
     if (cType === 0) {
       allowed = type0
       asterick = empty
-      inc(ptc, 2).push(2)
+      ptc.push(2)
       str.push(obj)
       str.push(openingParObj)
     } else if (cType === 1) {
       if (pre.type === 1) {
         pre.value += cEv
-        inc(ptc, 1)
+        ptc[ptc.length - 1]++
       } else {
         str.push(obj)
       }
@@ -263,7 +257,7 @@ Mexp.lex = function (inp, tokens) {
     } else if (cType === 2) {
       allowed = type0
       asterick = empty
-      inc(ptc, 2)
+      ptc[ptc.length - 1] += 2
       str.push(obj)
     } else if (cType === 3) { // constant
       str.push(obj)
@@ -299,23 +293,23 @@ Mexp.lex = function (inp, tokens) {
           pre: 0
         } // pre needs to be changed as it will the last value now to be safe in later code
         str.push(pre)
-        inc(ptc, -1)
+        ptc[ptc.length - 1]--
       }
       allowed = type6
-      inc(ptc, 1)
+      ptc[ptc.length - 1]++
       asterick = empty
       pre.value += cEv
       pre.hasDec = true
     } else if (cType === 7) {
       allowed = type1
       asterick = type3Asterick
-      inc(ptc, 1)
+      ptc[ptc.length - 1]++
       str.push(obj)
     }
     if (cType === 8) {
       allowed = type0
       asterick = empty
-      inc(ptc, 4).push(4)
+      ptc.push(4)
       str.push(obj)
       str.push(openingParObj)
     } else if (cType === 9) {
@@ -323,31 +317,31 @@ Mexp.lex = function (inp, tokens) {
         if (pre.value === Mexp.math.add) {
           pre.value = cEv
           pre.show = cShow
-          inc(ptc, 1)
+          ptc[ptc.length - 1]++
         } else if (pre.value === Mexp.math.sub && cShow === '-') {
           pre.value = Mexp.math.add
           pre.show = '+'
-          inc(ptc, 1)
+          ptc[ptc.length - 1]++
         }
       } else if (pre.type !== 5 && pre.type !== 7 && pre.type !== 1 && pre.type !== 3 && pre.type !== 13) { // changesign only when negative is found
         if (cToken === '-') { // do nothing for + token
           // don't add with the above if statement as that will run the else statement of parent if on Ctoken +
           allowed = type0
           asterick = empty
-          inc(ptc, 2).push(2)
+          ptc.push(2)
           str.push(changeSignObj)
           str.push(openingParObj)
         }
       } else {
         str.push(obj)
-        inc(ptc, 2)
+        ptc[ptc.length - 1] += 2
       }
       allowed = type0
       asterick = empty
     } else if (cType === 10) {
       allowed = type0
       asterick = empty
-      inc(ptc, 2)
+      ptc[ptc.length - 1] += 2
       str.push(obj)
     } else if (cType === 11) {
       allowed = type0
@@ -356,7 +350,7 @@ Mexp.lex = function (inp, tokens) {
     } else if (cType === 12) {
       allowed = type0
       asterick = empty
-      inc(ptc, 6).push(6)
+      ptc.push(6)
       str.push(obj)
       str.push(openingParObj)
     } else if (cType === 13) {
@@ -364,13 +358,14 @@ Mexp.lex = function (inp, tokens) {
       asterick = type3Asterick
       str.push(obj)
     }
-    inc(ptc, -1)
+    ptc[ptc.length - 1]--
     prevKey = key
   }
   for (j = ptc.length; j--;) { // loop over ptc
     if (ptc[j] === 0) {
       str.push(closingParObj)
-      inc(ptc, -1).pop()
+      ptc.pop()
+      ptc[ptc.length - 1]--
     } else break  // if it is not zero so before ptc also cant be zero
   }
   if (allowed[5] !== true) {
