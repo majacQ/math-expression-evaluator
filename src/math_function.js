@@ -1,5 +1,5 @@
-var Mexp = function (parsed) {
-  this.value = parsed
+var Mexp = function () {
+  
 }
 
 Mexp.math = {
@@ -123,8 +123,5 @@ Mexp.math = {
   toRadian: function (x) {
     return x * Math.PI / 180
   }
-}
-Mexp.Exception = function (message) {
-  this.message = message
 }
 module.exports = Mexp

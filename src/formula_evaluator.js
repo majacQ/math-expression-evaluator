@@ -4,7 +4,7 @@ Mexp.prototype.formulaEval = function () {
 	var stack=[],pop1,pop2,pop3;
 	var disp=[];
 	var temp='';
-	var arr=this.value;
+	var arr=this.postfixed;
 	for(var i=0;i<arr.length;i++){
 		if(arr[i].type===1||arr[i].type===3){
 			disp.push({value:arr[i].type===3?arr[i].show:arr[i].value,type:1});
@@ -38,4 +38,4 @@ Mexp.prototype.formulaEval = function () {
 	}
 	return disp[0].value;
 };
-module.exports=Mexp;
+module.exports= Mexp;

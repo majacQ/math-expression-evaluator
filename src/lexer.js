@@ -150,7 +150,7 @@ Mexp.addToken = function (tokens) {
     }
   }
 }
-Mexp.lex = function (inp, tokens) {
+Mexp.prototype.lex = function (inp, tokens) {
   'use strict'
   var changeSignObj = {
     value: Mexp.math.changeSign,
@@ -166,8 +166,8 @@ Mexp.lex = function (inp, tokens) {
   }
   var openingParObj = {
     value: '(',
-    type: 4,
     pre: 0,
+    type: 4,
     show: '('
   }
   var str = [openingParObj]
@@ -175,6 +175,7 @@ Mexp.lex = function (inp, tokens) {
   var inpStr = inp
   var key
   var pcounter = 0
+  var ptcLastIndex = -1
   var allowed = type0
   var bracToClose = 0
   var asterick = empty
@@ -200,7 +201,8 @@ Mexp.lex = function (inp, tokens) {
     }
     i += key.length - 1
     if (key === '') {
-      throw (new Mexp.Exception('Can\'t understand after ' + inpStr.slice(i)))
+      this.message = 'Can\'t understand after ' + inpStr.slice(i)
+      return this
     }
     var index = token.indexOf(key)
     var cToken = key
@@ -210,21 +212,24 @@ Mexp.lex = function (inp, tokens) {
     var cShow = show[index]
     var pre = str[str.length - 1]
     var j
-    for (j = ptc.length; j--;) { // loop over ptc
+    for (j = ptcLastIndex + 1; j--;) { // loop over ptc
       if (ptc[j] === 0) {
         if ([0, 2, 3, 5, 9, 11, 12, 13].indexOf(cType) !== -1) {
           if (allowed[cType] !== true) {
-            throw (new Mexp.Exception(key + ' is not allowed after ' + prevKey))
+            this.message = key + ' is not allowed after ' + prevKey
+            return this
           }
           str.push(closingParObj)
           allowed = type1
           asterick = type3Asterick
-          ptc.pop()
+          ptcLastIndex--
+          ptc[ptcLastIndex]--
         }
       } else break
     }
     if (allowed[cType] !== true) {
-      throw (new Mexp.Exception(key + ' is not allowed after ' + prevKey))
+      this.message = key + ' is not allowed after ' + prevKey
+      return this
     }
     if (asterick[cType] === true) {
       cType = 2
@@ -243,12 +248,13 @@ Mexp.lex = function (inp, tokens) {
       allowed = type0
       asterick = empty
       ptc.push(2)
+      ptcLastIndex++
       str.push(obj)
       str.push(openingParObj)
     } else if (cType === 1) {
       if (pre.type === 1) {
         pre.value += cEv
-        ptc[ptc.length - 1]++
+        ptc[ptcLastIndex]++
       } else {
         str.push(obj)
       }
@@ -257,22 +263,24 @@ Mexp.lex = function (inp, tokens) {
     } else if (cType === 2) {
       allowed = type0
       asterick = empty
-      ptc[ptc.length - 1] += 2
+      ptc[ptcLastIndex] += 2
       str.push(obj)
     } else if (cType === 3) { // constant
       str.push(obj)
       allowed = type1
       asterick = type3Asterick
     } else if (cType === 4) {
-      pcounter += ptc.length
+      pcounter += ptcLastIndex + 1
       ptc = []
+      ptcLastIndex = -1
       bracToClose++
       allowed = type0
       asterick = empty
       str.push(obj)
     } else if (cType === 5) {
       if (!bracToClose) {
-        throw (new Mexp.Exception('Closing parenthesis are more than opening one, wait What!!!'))
+        this.message = 'Closing parenthesis are more than opening one, wait What!!!'
+        return this
       }
       while (pcounter--) { // loop over ptc
         str.push(closingParObj)
@@ -284,7 +292,8 @@ Mexp.lex = function (inp, tokens) {
       str.push(obj)
     } else if (cType === 6) {
       if (pre.hasDec) {
-        throw (new Mexp.Exception('Two decimals are not allowed in one number'))
+        this.message = 'Two decimals are not allowed in one number'
+        return this
       }
       if (pre.type !== 1) {
         pre = {
@@ -293,23 +302,24 @@ Mexp.lex = function (inp, tokens) {
           pre: 0
         } // pre needs to be changed as it will the last value now to be safe in later code
         str.push(pre)
-        ptc[ptc.length - 1]--
+        ptc[ptcLastIndex]--
       }
       allowed = type6
-      ptc[ptc.length - 1]++
+      ptc[ptcLastIndex]++
       asterick = empty
       pre.value += cEv
       pre.hasDec = true
     } else if (cType === 7) {
       allowed = type1
       asterick = type3Asterick
-      ptc[ptc.length - 1]++
+      ptc[ptcLastIndex]++
       str.push(obj)
     }
     if (cType === 8) {
       allowed = type0
       asterick = empty
       ptc.push(4)
+      ptcLastIndex++
       str.push(obj)
       str.push(openingParObj)
     } else if (cType === 9) {
@@ -317,11 +327,11 @@ Mexp.lex = function (inp, tokens) {
         if (pre.value === Mexp.math.add) {
           pre.value = cEv
           pre.show = cShow
-          ptc[ptc.length - 1]++
+          ptc[ptcLastIndex]++
         } else if (pre.value === Mexp.math.sub && cShow === '-') {
           pre.value = Mexp.math.add
           pre.show = '+'
-          ptc[ptc.length - 1]++
+          ptc[ptcLastIndex]++
         }
       } else if (pre.type !== 5 && pre.type !== 7 && pre.type !== 1 && pre.type !== 3 && pre.type !== 13) { // changesign only when negative is found
         if (cToken === '-') { // do nothing for + token
@@ -329,19 +339,20 @@ Mexp.lex = function (inp, tokens) {
           allowed = type0
           asterick = empty
           ptc.push(2)
+          ptcLastIndex++
           str.push(changeSignObj)
           str.push(openingParObj)
         }
       } else {
         str.push(obj)
-        ptc[ptc.length - 1] += 2
+        ptc[ptcLastIndex] += 2
       }
       allowed = type0
       asterick = empty
     } else if (cType === 10) {
       allowed = type0
       asterick = empty
-      ptc[ptc.length - 1] += 2
+      ptc[ptcLastIndex] += 2
       str.push(obj)
     } else if (cType === 11) {
       allowed = type0
@@ -351,6 +362,7 @@ Mexp.lex = function (inp, tokens) {
       allowed = type0
       asterick = empty
       ptc.push(6)
+      ptcLastIndex++
       str.push(obj)
       str.push(openingParObj)
     } else if (cType === 13) {
@@ -358,25 +370,24 @@ Mexp.lex = function (inp, tokens) {
       asterick = type3Asterick
       str.push(obj)
     }
-    ptc[ptc.length - 1]--
+    ptc[ptcLastIndex]--
     prevKey = key
   }
-  for (j = ptc.length; j--;) { // loop over ptc
-    if (ptc[j] === 0) {
+  for (j = ptcLastIndex + 1; j--;) { // loop over ptc
+    if (ptc[j] === 0 || ptc[j] === 1) {
       str.push(closingParObj)
-      ptc.pop()
-      ptc[ptc.length - 1]--
+      ptcLastIndex--
     } else break  // if it is not zero so before ptc also cant be zero
   }
   if (allowed[5] !== true) {
-    throw (new Mexp.Exception('complete the expression'))
+    this.message = 'complete the expression'
+    return this
   }
   while (bracToClose--) {
     str.push(closingParObj)
   }
-
   str.push(closingParObj)
-  //        console.log(str);
-  return new Mexp(str)
+  this.lexed = str
+  return this
 }
 module.exports = Mexp

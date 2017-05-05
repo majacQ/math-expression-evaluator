@@ -1,0 +1,401 @@
+Statistical profiling result from isolate-0x2212260-v8.log, (3434 ticks, 154 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+     87    2.5%          /usr/bin/nodejs
+     26    0.8%          /lib/x86_64-linux-gnu/libc-2.23.so
+      1    0.0%          [vdso]
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+   1246   36.3%   37.5%  LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+     41    1.2%    1.2%  LazyCompile: *Mexp.postfixEval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:2:39
+     38    1.1%    1.1%  Stub: StringEqualStub
+     35    1.0%    1.1%  LazyCompile: *Mexp.toPostfix /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix.js:4:38
+     35    1.0%    1.1%  KeyedLoadIC: A keyed load IC from the snapshot {1}
+     30    0.9%    0.9%  Stub: CEntryStub
+     20    0.6%    0.6%  Stub: VectorKeyedStoreICStub
+     13    0.4%    0.4%  Stub: StringAddStub_CheckNone_NotTenured
+     11    0.3%    0.3%  Stub: CompareICStub {1}
+     10    0.3%    0.3%  Stub: CompareICStub
+      9    0.3%    0.3%  Stub: JSEntryStub
+      9    0.3%    0.3%  Stub: GrowArrayElementsStub
+      7    0.2%    0.2%  KeyedStoreIC: A keyed store IC from the snapshot
+      6    0.2%    0.2%  Builtin: JSEntryTrampoline
+      6    0.2%    0.2%  Builtin: CallFunction_ReceiverIsNotNullOrUndefined
+      4    0.1%    0.1%  LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      3    0.1%    0.1%  Stub: StringToNumberStub
+      3    0.1%    0.1%  Builtin: NumberConstructor
+      2    0.1%    0.1%  Stub: ToNumberStub
+      2    0.1%    0.1%  LazyCompile: *valueOf native v8natives.js:80:23
+      2    0.1%    0.1%  LazyCompile: *div /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/math_function.js:51:17
+      2    0.1%    0.1%  Builtin: Call_ReceiverIsNotNullOrUndefined
+      2    0.1%    0.1%  Builtin: CallFunction_ReceiverIsAny
+      1    0.0%    0.0%  Stub: StoreFieldStub
+      1    0.0%    0.0%  Stub: NonNumberToNumberStub
+      1    0.0%    0.0%  Stub: CEntryStub {1}
+      1    0.0%    0.0%  LazyCompile: ~runInThisContext bootstrap_node.js:399:28
+      1    0.0%    0.0%  LazyCompile: ~Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+      1    0.0%    0.0%  LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      1    0.0%    0.0%  LazyCompile: *mul /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/math_function.js:71:17
+      1    0.0%    0.0%  LazyCompile: *add /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/math_function.js:10:17
+      1    0.0%    0.0%  KeyedLoadIC: A keyed load IC from the snapshot
+      1    0.0%    0.0%  Handler: An IC handler from the snapshot
+      1    0.0%    0.0%  Builtin: FunctionPrototypeToString
+      1    0.0%    0.0%  Builtin: ArgumentsAdaptorTrampoline
+
+ [C++]:
+   ticks  total  nonlib   name
+    135    3.9%    4.1%  void v8::internal::LookupIterator::Start<false>()
+     82    2.4%    2.5%  v8::internal::LookupIterator::PropertyOrElement(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>, bool*, v8::internal::LookupIterator::Configuration)
+     80    2.3%    2.4%  v8::internal::LookupIterator::WriteDataValue(v8::internal::Handle<v8::internal::Object>)
+     64    1.9%    1.9%  v8::internal::String::SlowEquals(v8::internal::String*)
+     62    1.8%    1.9%  v8::internal::Factory::GetNumberStringCache(v8::internal::Handle<v8::internal::Object>)
+     55    1.6%    1.7%  v8::internal::Factory::NumberToString(v8::internal::Handle<v8::internal::Object>, bool)
+     50    1.5%    1.5%  write
+     47    1.4%    1.4%  v8::internal::HashTable<v8::internal::StringTable, v8::internal::StringTableShape, v8::internal::HashTableKey*>::FindEntry(v8::internal::Isolate*, v8::internal::HashTableKey*)
+     45    1.3%    1.4%  v8::internal::JSFunction::ToString(v8::internal::Handle<v8::internal::JSFunction>)
+     40    1.2%    1.2%  void v8::internal::LookupIterator::NextInternal<false>(v8::internal::Map*, v8::internal::JSReceiver*)
+     40    1.2%    1.2%  v8::internal::Object::SetProperty(v8::internal::LookupIterator*, v8::internal::Handle<v8::internal::Object>, v8::internal::LanguageMode, v8::internal::Object::StoreFromKeyed)
+     38    1.1%    1.1%  v8::internal::LookupIterator::GetDataValue() const
+     37    1.1%    1.1%  v8::internal::Heap::AllocateRaw(int, v8::internal::AllocationSpace, v8::internal::AllocationAlignment)
+     35    1.0%    1.1%  v8::internal::StringTable::LookupString(v8::internal::Isolate*, v8::internal::Handle<v8::internal::String>)
+     31    0.9%    0.9%  v8::internal::JSReceiver::GetProperty(v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::Handle<v8::internal::Name>)
+     30    0.9%    0.9%  v8::internal::Execution::Call(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>, int, v8::internal::Handle<v8::internal::Object>*)
+     29    0.8%    0.9%  node::ContextifyScript::New(v8::FunctionCallbackInfo<v8::Value> const&)
+     28    0.8%    0.8%  v8::internal::Runtime_SetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     28    0.8%    0.8%  v8::internal::Runtime::SetObjectProperty(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>, v8::internal::LanguageMode)
+     28    0.8%    0.8%  v8::internal::Object::ConvertToName(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>)
+     28    0.8%    0.8%  v8::internal::InternalizedStringKey::IsMatch(v8::internal::Object*)
+     27    0.8%    0.8%  v8::internal::JSObject::FastPropertyAt(v8::internal::Handle<v8::internal::JSObject>, v8::internal::Representation, v8::internal::FieldIndex)
+     26    0.8%    0.8%  v8::internal::StringTable::LookupKey(v8::internal::Isolate*, v8::internal::HashTableKey*)
+     25    0.7%    0.8%  v8::internal::Factory::NewConsString(v8::internal::Handle<v8::internal::String>, v8::internal::Handle<v8::internal::String>)
+     21    0.6%    0.6%  v8::internal::Heap::AdjustLiveBytes(v8::internal::HeapObject*, int, v8::internal::Heap::InvocationMode)
+     20    0.6%    0.6%  v8::internal::Runtime::GetObjectProperty(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>)
+     20    0.6%    0.6%  v8::internal::JSReceiver::OrdinaryToPrimitive(v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::OrdinaryToPrimitiveHint)
+     19    0.6%    0.6%  v8::internal::IncrementalStringBuilder::AppendString(v8::internal::Handle<v8::internal::String>)
+     17    0.5%    0.5%  v8::internal::Runtime_KeyedGetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     17    0.5%    0.5%  v8::internal::Object::GetProperty(v8::internal::LookupIterator*)
+     16    0.5%    0.5%  v8::internal::Object::ToString(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>)
+     15    0.4%    0.5%  v8::internal::LookupIterator::PrepareForDataProperty(v8::internal::Handle<v8::internal::Object>)
+     15    0.4%    0.5%  v8::internal::Heap::AllocateHeapNumber(double, v8::internal::MutableMode, v8::internal::PretenureFlag)
+     14    0.4%    0.4%  v8::internal::SeqString::Truncate(v8::internal::Handle<v8::internal::SeqString>, int)
+     12    0.3%    0.4%  v8::internal::Runtime_Equal(int, v8::internal::Object**, v8::internal::Isolate*)
+     12    0.3%    0.4%  v8::internal::Object::SetDataProperty(v8::internal::LookupIterator*, v8::internal::Handle<v8::internal::Object>)
+     12    0.3%    0.4%  v8::internal::Factory::NewHeapNumber(double, v8::internal::MutableMode, v8::internal::PretenureFlag)
+     11    0.3%    0.3%  v8::internal::String::Flatten(v8::internal::Handle<v8::internal::String>, v8::internal::PretenureFlag)
+     11    0.3%    0.3%  v8::internal::Object::GetMethod(v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::Handle<v8::internal::Name>)
+     11    0.3%    0.3%  v8::internal::Factory::NewRawOneByteString(int, v8::internal::PretenureFlag)
+     10    0.3%    0.3%  v8::internal::SerializerDeserializer::Iterate(v8::internal::Isolate*, v8::internal::ObjectVisitor*)
+     10    0.3%    0.3%  v8::internal::SaveContext::SaveContext(v8::internal::Isolate*)
+     10    0.3%    0.3%  v8::internal::Heap::Allocate(v8::internal::Map*, v8::internal::AllocationSpace, v8::internal::AllocationSite*)
+     10    0.3%    0.3%  v8::internal::Factory::NewProperSubString(v8::internal::Handle<v8::internal::String>, int, int)
+      9    0.3%    0.3%  v8::internal::Object::SetPropertyInternal(v8::internal::LookupIterator*, v8::internal::Handle<v8::internal::Object>, v8::internal::LanguageMode, v8::internal::Object::StoreFromKeyed, bool*)
+      9    0.3%    0.3%  v8::internal::Object::Equals(v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>)
+      8    0.2%    0.2%  void v8::internal::String::WriteToFlat<unsigned char>(v8::internal::String*, unsigned char*, int, int)
+      8    0.2%    0.2%  v8::internal::Strtod(v8::internal::Vector<char const>, int)
+      8    0.2%    0.2%  v8::internal::JSReceiver::ToPrimitive(v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::ToPrimitiveHint)
+      7    0.2%    0.2%  v8::internal::SaveContext::~SaveContext()
+      6    0.2%    0.2%  v8::internal::SharedFunctionInfo::HasSourceCode() const
+      6    0.2%    0.2%  v8::internal::Map::PrepareForDataProperty(v8::internal::Handle<v8::internal::Map>, int, v8::internal::Handle<v8::internal::Object>)
+      6    0.2%    0.2%  v8::internal::LookupIterator::HolderIsReceiverOrHiddenPrototype() const
+      6    0.2%    0.2%  v8::internal::IncrementalStringBuilder::Finish()
+      6    0.2%    0.2%  v8::internal::Heap::AllocateRawOneByteString(int, v8::internal::PretenureFlag)
+      6    0.2%    0.2%  v8::internal::Handle<v8::internal::SlicedString> v8::internal::Factory::New<v8::internal::SlicedString>(v8::internal::Handle<v8::internal::Map>, v8::internal::AllocationSpace)
+      6    0.2%    0.2%  double v8::internal::InternalStringToDouble<unsigned char const*, unsigned char const*>(v8::internal::UnicodeCache*, unsigned char const*, unsigned char const*, int, double)
+      6    0.2%    0.2%  _IO_vfprintf
+      5    0.1%    0.2%  v8::internal::SimpleStringBuilder::AddPadding(char, int)
+      5    0.1%    0.2%  v8::internal::LookupIterator::LookupIterator(v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Name>, v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::LookupIterator::Configuration)
+      5    0.1%    0.2%  __libc_malloc
+      4    0.1%    0.1%  v8::internal::String::SlowEquals(v8::internal::Handle<v8::internal::String>, v8::internal::Handle<v8::internal::String>)
+      4    0.1%    0.1%  v8::internal::Object::ToInt32(int*)
+      4    0.1%    0.1%  v8::internal::Map::Update(v8::internal::Handle<v8::internal::Map>)
+      3    0.1%    0.1%  void v8::internal::StringHasher::AddCharacters<unsigned char>(unsigned char const*, int)
+      3    0.1%    0.1%  v8::internal::TransitionArray::SearchDetails(int, v8::internal::PropertyKind, v8::internal::PropertyAttributes, int*)
+      3    0.1%    0.1%  v8::internal::ScavengeVisitor::VisitPointer(v8::internal::Object**)
+      3    0.1%    0.1%  v8::internal::Runtime_StringToNumber(int, v8::internal::Object**, v8::internal::Isolate*)
+      3    0.1%    0.1%  v8::internal::JSObject::MigrateToMap(v8::internal::Handle<v8::internal::JSObject>, v8::internal::Handle<v8::internal::Map>, int)
+      3    0.1%    0.1%  v8::internal::IncrementalStringBuilder::IncrementalStringBuilder(v8::internal::Isolate*)
+      3    0.1%    0.1%  v8::internal::Handle<v8::internal::ConsString> v8::internal::Factory::New<v8::internal::ConsString>(v8::internal::Handle<v8::internal::Map>, v8::internal::AllocationSpace)
+      3    0.1%    0.1%  v8::internal::Factory::NewStringFromOneByte(v8::internal::Vector<unsigned char const>, v8::internal::PretenureFlag)
+      2    0.1%    0.1%  v8::internal::Zone::New(unsigned long)
+      2    0.1%    0.1%  v8::internal::String::ToNumber(v8::internal::Handle<v8::internal::String>)
+      2    0.1%    0.1%  v8::internal::String::SlowFlatten(v8::internal::Handle<v8::internal::ConsString>, v8::internal::PretenureFlag)
+      2    0.1%    0.1%  v8::internal::String::IsOneByteEqualTo(v8::internal::Vector<unsigned char const>)
+      2    0.1%    0.1%  v8::internal::Scope::Scope(v8::internal::Zone*, v8::internal::Scope*, v8::internal::ScopeType, v8::internal::AstValueFactory*, v8::internal::FunctionKind)
+      2    0.1%    0.1%  v8::internal::Runtime_StringCharCodeAtRT(int, v8::internal::Object**, v8::internal::Isolate*)
+      2    0.1%    0.1%  v8::internal::Map::TransitionToDataProperty(v8::internal::Handle<v8::internal::Map>, v8::internal::Handle<v8::internal::Name>, v8::internal::Handle<v8::internal::Object>, v8::internal::PropertyAttributes, v8::internal::Object::StoreFromKeyed)
+      2    0.1%    0.1%  v8::internal::Map::IsUnboxedDoubleField(v8::internal::FieldIndex)
+      2    0.1%    0.1%  v8::internal::LGapResolver::BuildInitialMoveList(v8::internal::LParallelMove*)
+      2    0.1%    0.1%  v8::internal::InternalizedStringKey::Hash()
+      2    0.1%    0.1%  v8::internal::HeapObject::synchronized_set_map(v8::internal::Map*)
+      2    0.1%    0.1%  v8::internal::GlobalHandles::PostScavengeProcessing(int)
+      2    0.1%    0.1%  v8::internal::FieldType::cast(v8::internal::Object*)
+      2    0.1%    0.1%  v8::internal::FastFixedDtoa(double, int, v8::internal::Vector<char>, int*, int*)
+      2    0.1%    0.1%  v8::internal::DescriptorArray::GetFieldType(int)
+      2    0.1%    0.1%  strlen
+      2    0.1%    0.1%  operator new(unsigned long)
+      2    0.1%    0.1%  __lll_lock_wait
+      1    0.0%    0.0%  v8::internal::VariableProxy::VariableProxy(v8::internal::Zone*, v8::internal::AstRawString const*, v8::internal::Variable::Kind, int, int)
+      1    0.0%    0.0%  v8::internal::V8::GetCurrentPlatform()
+      1    0.0%    0.0%  v8::internal::Type::SemanticIs(v8::internal::Type*)
+      1    0.0%    0.0%  v8::internal::StubCache::Initialize()
+      1    0.0%    0.0%  v8::internal::StringToDouble(v8::internal::UnicodeCache*, v8::internal::Handle<v8::internal::String>, int, double)
+      1    0.0%    0.0%  v8::internal::String::CalculateLineEnds(v8::internal::Handle<v8::internal::String>, bool)
+      1    0.0%    0.0%  v8::internal::StaticMarkingVisitor<v8::internal::MarkCompactMarkingVisitor>::VisitWeakCell(v8::internal::Map*, v8::internal::HeapObject*)
+      1    0.0%    0.0%  v8::internal::SimpleStringBuilder::Finalize()
+      1    0.0%    0.0%  v8::internal::SimpleStringBuilder::AddString(char const*)
+      1    0.0%    0.0%  v8::internal::SharedFunctionInfo::GetSourceCode()
+      1    0.0%    0.0%  v8::internal::Scavenger::ScavengeObject(v8::internal::HeapObject**, v8::internal::HeapObject*)
+      1    0.0%    0.0%  v8::internal::Scanner::ScanIdentifierOrKeyword()
+      1    0.0%    0.0%  v8::internal::Runtime_StringParseFloat(int, v8::internal::Object**, v8::internal::Isolate*)
+      1    0.0%    0.0%  v8::internal::Property::Accept(v8::internal::AstVisitor*)
+      1    0.0%    0.0%  v8::internal::PerIsolateAssertScope<(v8::internal::PerIsolateAssertType)1, false>::IsAllowed(v8::internal::Isolate*)
+      1    0.0%    0.0%  v8::internal::ParserBase<v8::internal::ParserTraits>::ParseMemberWithNewPrefixesExpression(v8::internal::ExpressionClassifier<v8::internal::ParserTraits>*, bool*)
+      1    0.0%    0.0%  v8::internal::ParserBase<v8::internal::ParserTraits>::ParseLeftHandSideExpression(v8::internal::ExpressionClassifier<v8::internal::ParserTraits>*, bool*)
+      1    0.0%    0.0%  v8::internal::ParseInfo::ParseInfo(v8::internal::Zone*, v8::internal::Handle<v8::internal::SharedFunctionInfo>)
+      1    0.0%    0.0%  v8::internal::PagedSpace::AllocateRawUnaligned(int, v8::internal::PagedSpace::UpdateSkipList)
+      1    0.0%    0.0%  v8::internal::NewSpace::ResumeAllocationObservers()
+      1    0.0%    0.0%  v8::internal::NewSpace::EnsureAllocation(int, v8::internal::AllocationAlignment)
+      1    0.0%    0.0%  v8::internal::LookupIterator::PrepareTransitionToDataProperty(v8::internal::Handle<v8::internal::JSObject>, v8::internal::Handle<v8::internal::Object>, v8::internal::PropertyAttributes, v8::internal::Object::StoreFromKeyed)
+      1    0.0%    0.0%  v8::internal::LookupIterator::ApplyTransitionToDataProperty(v8::internal::Handle<v8::internal::JSObject>)
+      1    0.0%    0.0%  v8::internal::LargeObjectSpace::Contains(v8::internal::HeapObject*)
+      1    0.0%    0.0%  v8::internal::LAllocator::TraceAlloc(char const*, ...)
+      1    0.0%    0.0%  v8::internal::LAllocator::AllocateBlockedReg(v8::internal::LiveRange*)
+      1    0.0%    0.0%  v8::internal::JSObject::GetFastEnumPropertyKeys(v8::internal::Isolate*, v8::internal::Handle<v8::internal::JSObject>)
+      1    0.0%    0.0%  v8::internal::IntToCString(int, v8::internal::Vector<char>)
+      1    0.0%    0.0%  v8::internal::Heap::GarbageCollectionEpilogue()
+      1    0.0%    0.0%  v8::internal::Heap::CreateFillerObjectAt(unsigned char*, int, v8::internal::ClearRecordedSlots)
+      1    0.0%    0.0%  v8::internal::Heap::AllocateStruct(v8::internal::InstanceType)
+      1    0.0%    0.0%  v8::internal::HValue::SetOperandAt(int, v8::internal::HValue*)
+      1    0.0%    0.0%  v8::internal::HLoadNamedField::IsDeletable() const
+      1    0.0%    0.0%  v8::internal::HInstruction::InsertAfter(v8::internal::HInstruction*)
+      1    0.0%    0.0%  v8::internal::HConstant* v8::internal::HGraphBuilder::Add<v8::internal::HConstant, int>(int)
+      1    0.0%    0.0%  v8::internal::FuncNameInferrer::PushVariableName(v8::internal::AstRawString const*)
+      1    0.0%    0.0%  v8::internal::FullCodeGenerator::SetExpressionPosition(v8::internal::Expression*, v8::internal::FullCodeGenerator::InsertBreak)
+      1    0.0%    0.0%  v8::internal::FullCodeGenerator::MakeCode(v8::internal::CompilationInfo*)
+      1    0.0%    0.0%  v8::internal::FixStaleLeftTrimmedHandlesVisitor::VisitPointers(v8::internal::Object**, v8::internal::Object**)
+      1    0.0%    0.0%  v8::internal::Factory::SetNumberStringCache(v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::String>)
+      1    0.0%    0.0%  v8::internal::Factory::CopyFixedArrayAndGrow(v8::internal::Handle<v8::internal::FixedArray>, int, v8::internal::PretenureFlag)
+      1    0.0%    0.0%  v8::internal::ExpressionClassifier<v8::internal::ParserTraits>::Accumulate(v8::internal::ExpressionClassifier<v8::internal::ParserTraits>*, unsigned int, bool)
+      1    0.0%    0.0%  v8::internal::DoubleToFixedCString(double, int)
+      1    0.0%    0.0%  v8::internal::DescriptorArray::CopyFrom(int, v8::internal::DescriptorArray*)
+      1    0.0%    0.0%  v8::internal::ConsString* v8::internal::String::VisitFlat<v8::internal::IteratingStringHasher>(v8::internal::IteratingStringHasher*, v8::internal::String*, int)
+      1    0.0%    0.0%  v8::internal::CallIC::initialize_stub(v8::internal::Isolate*, int, v8::internal::ConvertReceiverMode, v8::internal::TailCallMode)
+      1    0.0%    0.0%  v8::internal::AstValueFactory::NewString(v8::internal::AstRawString const*)
+      1    0.0%    0.0%  v8::internal::AstValueFactory::GetString(unsigned int, bool, v8::internal::Vector<unsigned char const>)
+      1    0.0%    0.0%  v8::internal::AstValueFactory::GetOneByteStringInternal(v8::internal::Vector<unsigned char const>)
+      1    0.0%    0.0%  v8::internal::AstValue::IsPropertyName() const
+      1    0.0%    0.0%  v8::internal::AstNumberingVisitor::VisitArrayLiteral(v8::internal::ArrayLiteral*)
+      1    0.0%    0.0%  v8::internal::Assembler::j(v8::internal::Condition, v8::internal::Label*, v8::internal::Label::Distance)
+      1    0.0%    0.0%  v8::internal::Assembler::emit_lea(v8::internal::Register, v8::internal::Operand const&, int)
+      1    0.0%    0.0%  v8::internal::Assembler::db(unsigned char)
+      1    0.0%    0.0%  strchrnul
+      1    0.0%    0.0%  std::ios_base::_M_init()
+      1    0.0%    0.0%  node::Buffer::SetupBufferJS(v8::FunctionCallbackInfo<v8::Value> const&)
+      1    0.0%    0.0%  fwrite
+      1    0.0%    0.0%  _init
+      1    0.0%    0.0%  __GI___pthread_mutex_unlock
+      1    0.0%    0.0%  _IO_default_xsputn
+
+ [Summary]:
+   ticks  total  nonlib   name
+   1548   45.1%   46.6%  JavaScript
+   1618   47.1%   48.7%  C++
+     29    0.8%    0.9%  GC
+    114    3.3%          Shared libraries
+    154    4.5%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+    522   31.7%   15.2%  v8::internal::Runtime_SetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+    483   29.4%   14.1%  v8::internal::Runtime_KeyedGetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+    205   12.5%    6.0%  v8::internal::Runtime_Equal(int, v8::internal::Object**, v8::internal::Isolate*)
+     45    2.7%    1.3%  v8::internal::JSFunction::ToString(v8::internal::Handle<v8::internal::JSFunction>)
+     37    2.2%    1.1%  v8::internal::Runtime_CompileLazy(int, v8::internal::Object**, v8::internal::Isolate*)
+     30    1.8%    0.9%  v8::internal::Runtime_NumberToFixed(int, v8::internal::Object**, v8::internal::Isolate*)
+     29    1.8%    0.8%  node::ContextifyScript::New(v8::FunctionCallbackInfo<v8::Value> const&)
+     25    1.5%    0.7%  v8::internal::Factory::NewConsString(v8::internal::Handle<v8::internal::String>, v8::internal::Handle<v8::internal::String>)
+     21    1.3%    0.6%  v8::internal::Heap::AllocateRaw(int, v8::internal::AllocationSpace, v8::internal::AllocationAlignment)
+     21    1.3%    0.6%  v8::internal::Heap::AdjustLiveBytes(v8::internal::HeapObject*, int, v8::internal::Heap::InvocationMode)
+     19    1.2%    0.6%  v8::internal::IncrementalStringBuilder::AppendString(v8::internal::Handle<v8::internal::String>)
+     16    1.0%    0.5%  v8::internal::Runtime_StringParseFloat(int, v8::internal::Object**, v8::internal::Isolate*)
+     15    0.9%    0.4%  v8::internal::Runtime_StringToNumber(int, v8::internal::Object**, v8::internal::Isolate*)
+     14    0.9%    0.4%  v8::internal::SeqString::Truncate(v8::internal::Handle<v8::internal::SeqString>, int)
+     14    0.9%    0.4%  v8::internal::Runtime_StringCharCodeAtRT(int, v8::internal::Object**, v8::internal::Isolate*)
+     10    0.6%    0.3%  v8::internal::Heap::Allocate(v8::internal::Map*, v8::internal::AllocationSpace, v8::internal::AllocationSite*)
+     10    0.6%    0.3%  v8::internal::Factory::NewRawOneByteString(int, v8::internal::PretenureFlag)
+     10    0.6%    0.3%  v8::internal::Factory::NewProperSubString(v8::internal::Handle<v8::internal::String>, int, int)
+      9    0.5%    0.3%  void v8::internal::LookupIterator::Start<false>()
+      8    0.5%    0.2%  v8::internal::Runtime_NumberToStringSkipCache(int, v8::internal::Object**, v8::internal::Isolate*)
+      8    0.5%    0.2%  v8::internal::Runtime_CompileOptimized_Concurrent(int, v8::internal::Object**, v8::internal::Isolate*)
+      6    0.4%    0.2%  v8::internal::SharedFunctionInfo::HasSourceCode() const
+      6    0.4%    0.2%  v8::internal::IncrementalStringBuilder::Finish()
+      6    0.4%    0.2%  v8::internal::Handle<v8::internal::SlicedString> v8::internal::Factory::New<v8::internal::SlicedString>(v8::internal::Handle<v8::internal::Map>, v8::internal::AllocationSpace)
+      5    0.3%    0.1%  v8::internal::Runtime_StoreIC_Miss(int, v8::internal::Object**, v8::internal::Isolate*)
+      5    0.3%    0.1%  v8::internal::Runtime_StackGuard(int, v8::internal::Object**, v8::internal::Isolate*)
+      5    0.3%    0.1%  v8::internal::Runtime_LoadIC_Miss(int, v8::internal::Object**, v8::internal::Isolate*)
+      5    0.3%    0.1%  v8::internal::Object::Equals(v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>)
+      5    0.3%    0.1%  v8::internal::LookupIterator::LookupIterator(v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Name>, v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::LookupIterator::Configuration)
+      5    0.3%    0.1%  v8::internal::JSReceiver::OrdinaryToPrimitive(v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::OrdinaryToPrimitiveHint)
+      4    0.2%    0.1%  v8::internal::String::SlowEquals(v8::internal::Handle<v8::internal::String>, v8::internal::Handle<v8::internal::String>)
+      4    0.2%    0.1%  v8::internal::Runtime_KeyedStoreIC_Miss(int, v8::internal::Object**, v8::internal::Isolate*)
+      4    0.2%    0.1%  v8::internal::Heap::AllocateRawOneByteString(int, v8::internal::PretenureFlag)
+      4    0.2%    0.1%  v8::internal::Execution::Call(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>, int, v8::internal::Handle<v8::internal::Object>*)
+      3    0.2%    0.1%  v8::internal::SaveContext::~SaveContext()
+      3    0.2%    0.1%  v8::internal::IncrementalStringBuilder::IncrementalStringBuilder(v8::internal::Isolate*)
+      3    0.2%    0.1%  v8::internal::Handle<v8::internal::ConsString> v8::internal::Factory::New<v8::internal::ConsString>(v8::internal::Handle<v8::internal::Map>, v8::internal::AllocationSpace)
+      2    0.1%    0.1%  void v8::internal::LookupIterator::NextInternal<false>(v8::internal::Map*, v8::internal::JSReceiver*)
+      2    0.1%    0.1%  v8::internal::Runtime_RegExpExec(int, v8::internal::Object**, v8::internal::Isolate*)
+      2    0.1%    0.1%  v8::internal::Runtime_KeyedLoadIC_Miss(int, v8::internal::Object**, v8::internal::Isolate*)
+      2    0.1%    0.1%  v8::internal::Runtime_CompileForOnStackReplacement(int, v8::internal::Object**, v8::internal::Isolate*)
+      2    0.1%    0.1%  v8::internal::Runtime_BinaryOpIC_Miss(int, v8::internal::Object**, v8::internal::Isolate*)
+      2    0.1%    0.1%  v8::internal::Runtime_AllocateInTargetSpace(int, v8::internal::Object**, v8::internal::Isolate*)
+      1    0.1%    0.0%  v8::internal::V8::GetCurrentPlatform()
+      1    0.1%    0.0%  v8::internal::SharedFunctionInfo::GetSourceCode()
+      1    0.1%    0.0%  v8::internal::Runtime_TryInstallOptimizedCode(int, v8::internal::Object**, v8::internal::Isolate*)
+      1    0.1%    0.0%  v8::internal::Runtime_ToBooleanIC_Miss(int, v8::internal::Object**, v8::internal::Isolate*)
+      1    0.1%    0.0%  v8::internal::LargeObjectSpace::Contains(v8::internal::HeapObject*)
+      1    0.1%    0.0%  v8::internal::JSReceiver::ToPrimitive(v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::ToPrimitiveHint)
+      1    0.1%    0.0%  v8::internal::JSObject::GetFastEnumPropertyKeys(v8::internal::Isolate*, v8::internal::Handle<v8::internal::JSObject>)
+      1    0.1%    0.0%  v8::internal::Heap::CreateFillerObjectAt(unsigned char*, int, v8::internal::ClearRecordedSlots)
+      1    0.1%    0.0%  node::Buffer::SetupBufferJS(v8::FunctionCallbackInfo<v8::Value> const&)
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 2.0% are not shown.
+
+   ticks parent  name
+   1246   36.3%  LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+   1093   87.7%    LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+   1093  100.0%      LazyCompile: ~Module._compile module.js:510:37
+   1093  100.0%        LazyCompile: ~Module._extensions..js module.js:577:37
+   1093  100.0%          LazyCompile: ~Module.load module.js:478:33
+   1093  100.0%            LazyCompile: tryModuleLoad module.js:443:23
+    153   12.3%    LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+    153  100.0%      Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+    153  100.0%        LazyCompile: ~Module._compile module.js:510:37
+    153  100.0%          LazyCompile: ~Module._extensions..js module.js:577:37
+    153  100.0%            LazyCompile: ~Module.load module.js:478:33
+
+    154    4.5%  UNKNOWN
+
+    135    3.9%  void v8::internal::LookupIterator::Start<false>()
+     56   41.5%    v8::internal::Runtime_KeyedGetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     56  100.0%      LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+     48   85.7%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     48  100.0%          LazyCompile: ~Module._compile module.js:510:37
+     48  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      8   14.3%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      8  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      8  100.0%            LazyCompile: ~Module._compile module.js:510:37
+     36   26.7%    v8::internal::Runtime_SetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     36  100.0%      LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+     33   91.7%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     33  100.0%          LazyCompile: ~Module._compile module.js:510:37
+     33  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      3    8.3%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      3  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      3  100.0%            LazyCompile: ~Module._compile module.js:510:37
+     34   25.2%    v8::internal::Runtime_Equal(int, v8::internal::Object**, v8::internal::Isolate*)
+     34  100.0%      LazyCompile: *Mexp.toPostfix /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix.js:4:38
+     30   88.2%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     30  100.0%          LazyCompile: ~Module._compile module.js:510:37
+     30  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      4   11.8%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      4  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      4  100.0%            LazyCompile: ~Module._compile module.js:510:37
+      9    6.7%    /usr/bin/nodejs
+      9  100.0%      Stub: CEntryStub
+      9  100.0%        LazyCompile: *Mexp.toPostfix /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix.js:4:38
+      9  100.0%          LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      9  100.0%            LazyCompile: ~Module._compile module.js:510:37
+
+     87    2.5%  /usr/bin/nodejs
+     29   33.3%    v8::internal::Runtime_KeyedGetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     29  100.0%      LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+     25   86.2%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     25  100.0%          LazyCompile: ~Module._compile module.js:510:37
+     25  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      4   13.8%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      4  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      4  100.0%            LazyCompile: ~Module._compile module.js:510:37
+     25   28.7%    v8::internal::Runtime_SetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     25  100.0%      LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+     23   92.0%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     23  100.0%          LazyCompile: ~Module._compile module.js:510:37
+     23  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      2    8.0%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      2  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      2  100.0%            LazyCompile: ~Module._compile module.js:510:37
+     25   28.7%    /usr/bin/nodejs
+     19   76.0%      Stub: CEntryStub
+     19  100.0%        LazyCompile: *Mexp.toPostfix /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix.js:4:38
+     18   94.7%          LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     18  100.0%            LazyCompile: ~Module._compile module.js:510:37
+      1    5.3%          LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      1  100.0%            Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      2    8.0%      LazyCompile: ~fs.lstatSync fs.js:992:24
+      2  100.0%        LazyCompile: ~realpathSync fs.js:1606:40
+      2  100.0%          LazyCompile: ~toRealPath module.js:132:20
+      2  100.0%            LazyCompile: ~Module._findPath module.js:151:28
+      1    4.0%      LazyCompile: ~lazyConstants internal/process.js:5:23
+      1  100.0%        LazyCompile: ~isSignal internal/process.js:203:20
+      1  100.0%          LazyCompile: ~<anonymous> internal/process.js:209:37
+      1  100.0%            LazyCompile: ~emitTwo events.js:104:17
+      1    4.0%      LazyCompile: ~Mexp.toPostfix /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix.js:4:38
+      1  100.0%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      1  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      1  100.0%            LazyCompile: ~Module._compile module.js:510:37
+      1    4.0%      Function: ~<anonymous> timers.js:1:11
+      1  100.0%        LazyCompile: NativeModule.compile bootstrap_node.js:481:44
+      1  100.0%          LazyCompile: ~NativeModule.require bootstrap_node.js:415:34
+      1  100.0%            LazyCompile: ~setupGlobalTimeouts bootstrap_node.js:231:31
+      1    4.0%      Function: ~<anonymous> buffer.js:1:11
+      1  100.0%        LazyCompile: NativeModule.compile bootstrap_node.js:481:44
+      1  100.0%          LazyCompile: ~NativeModule.require bootstrap_node.js:415:34
+      1  100.0%            Function: ~<anonymous> util.js:1:11
+      4    4.6%    v8::internal::Runtime_StringToNumber(int, v8::internal::Object**, v8::internal::Isolate*)
+      4  100.0%      LazyCompile: *Mexp.toPostfix /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix.js:4:38
+      4  100.0%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      4  100.0%          LazyCompile: ~Module._compile module.js:510:37
+      4  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      2    2.3%    v8::internal::Runtime_CompileLazy(int, v8::internal::Object**, v8::internal::Isolate*)
+      1   50.0%      LazyCompile: ~replace native string.js:132:23
+      1  100.0%        LazyCompile: ~setupConfig internal/process.js:119:21
+      1  100.0%          LazyCompile: ~startup bootstrap_node.js:12:19
+      1  100.0%            Function: ~<anonymous> bootstrap_node.js:10:10
+      1   50.0%      LazyCompile: ~InnerArrayFilter native array.js:913:26
+      1  100.0%        LazyCompile: ~filter native array.js:927:21
+      1  100.0%          LazyCompile: ~Module._initPaths module.js:609:29
+      1  100.0%            Function: ~<anonymous> module.js:1:11
+
+     82    2.4%  v8::internal::LookupIterator::PropertyOrElement(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>, bool*, v8::internal::LookupIterator::Configuration)
+     44   53.7%    v8::internal::Runtime_SetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     44  100.0%      LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+     41   93.2%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     41  100.0%          LazyCompile: ~Module._compile module.js:510:37
+     41  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      3    6.8%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      3  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      3  100.0%            LazyCompile: ~Module._compile module.js:510:37
+     38   46.3%    v8::internal::Runtime_KeyedGetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     38  100.0%      LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+     35   92.1%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     35  100.0%          LazyCompile: ~Module._compile module.js:510:37
+     35  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      3    7.9%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      3  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      3  100.0%            LazyCompile: ~Module._compile module.js:510:37
+
+     80    2.3%  v8::internal::LookupIterator::WriteDataValue(v8::internal::Handle<v8::internal::Object>)
+     80  100.0%    v8::internal::Runtime_SetProperty(int, v8::internal::Object**, v8::internal::Isolate*)
+     80  100.0%      LazyCompile: *Mexp.lex /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/lexer.js:153:21
+     73   91.3%        LazyCompile: *<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+     73  100.0%          LazyCompile: ~Module._compile module.js:510:37
+     73  100.0%            LazyCompile: ~Module._extensions..js module.js:577:37
+      7    8.8%        LazyCompile: ~Mexp.eval /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:92:19
+      7  100.0%          Function: ~<anonymous> /mnt/FC8C84988C844ED8/Pthing/Projects/math-expression-evaluator/src/postfix_evaluator.js:1:11
+      7  100.0%            LazyCompile: ~Module._compile module.js:510:37
+

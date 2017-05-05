@@ -1,7 +1,8 @@
 // This test is for node JS
 
 var assert = require('assert');
-var a=require("../src/formula_evaluator.js");
+var Mexp = require("../src/formula_evaluator.js");
+var a = new Mexp
 describe('Testing Unit', function () {
   it('should equal 2 to check a number', function () {
     assert.equal(a.lex("2").toPostfix().postfixEval(),2);
@@ -17,6 +18,9 @@ describe('Testing Unit', function () {
   });
   it('checks a parenthesis less function after multiple spaces', function () {
     assert.equal(a.lex("cos   180").toPostfix().postfixEval(),-1);
+  });
+  it('checks a parenthesis less function when need to cloase parenthesis in middle', function () {
+    assert.equal(a.lex("sinint90.1+2").toPostfix().postfixEval(),3);
   });
   it('checks consecutive operator', function () {
     assert.equal(a.lex("0+-2").toPostfix().postfixEval(),-2);
@@ -78,67 +82,62 @@ describe('Testing Unit', function () {
   });
 
   it('check when two parenthesis less functions are consecutive on one parameter', function () {
-    console.log(a.lex("sinint2.5").value)
+    console.log(a.lex("sin(int(2.5))").lexed)
     assert.equal(a.lex("sinint2.5").toPostfix().postfixEval(),a.lex("sin(int(2.5))").toPostfix().postfixEval());
   });
 
   it('check eval method with single argument', function () {
-    assert.equal(a.eval("5*3"),"15");
+    assert.equal(Mexp.eval("5*3"),"15");
   });
   it('check eval method with three argument', function () {
-    assert.equal(a.eval("mexp*3",[{type:3,show:"mexp",token:"mexp",value:"mexp",preced:0}],{mexp:5}),"15");
+    assert.equal(Mexp.eval("mexp*3",[{type:3,show:"mexp",token:"mexp",value:"mexp",preced:0}],{mexp:5}),"15");
   });
   it('check eval method with two argument when second one is value of constants', function () {
-	a.addToken([{type:3,show:"mexp",value:"mexp",preced:0,token:"mexp"}]);
-    assert.equal(a.eval("mexp*3",{mexp:5}),"15");
+	Mexp.addToken([{type:3,show:"mexp",value:"mexp",preced:0,token:"mexp"}]);
+    assert.equal(Mexp.eval("mexp*3",{mexp:5}),"15");
   });
   it('check eval method with two argument when second one is value of constants', function () {
-	a.addToken([{type:0,show:"mexp",value:function(a){return 5*a;},preced:11,token:"mexp"}]);
+	Mexp.addToken([{type:0,show:"mexp",value:function(a){return 5*a;},preced:11,token:"mexp"}]);
     assert.equal(a.lex("mexp3").toPostfix().postfixEval(),"15");
   });
   it('check eval method with two argument when second one is token list', function () {
-	 assert.equal(a.eval("mexp(3)",[{type:0,show:"mexp(",value:function(a){return 5*a;},preced:11,token:"mexp"}]),"15");
+	 assert.equal(Mexp.eval("mexp(3)",[{type:0,show:"mexp(",value:function(a){return 5*a;},preced:11,token:"mexp"}]),"15");
   });
   it('Pi', function () {
-	 assert.equal(a.eval("Pi1,5,n"),"120");
+	 assert.equal(Mexp.eval("Pi1,5,n"),"120");
   });
   it('tan5(6+3)', function () {
-	 assert.equal(a.eval("tan5(6+3)"),"1");
+	 assert.equal(Mexp.eval("tan5(6+3)"),"1");
   });
   it('tan(40+5)', function () {
-	 assert.equal(a.eval("tan(40+5)"),"1");
+	 assert.equal(Mexp.eval("tan(40+5)"),"1");
   });
   it('checks when a 0 is missing in a decimal number', function () {
-	 assert.equal(a.eval("5*.8"),"4");
+	 assert.equal(Mexp.eval("5*.8"),"4");
   });
   it('checks root function', function () {
-	 assert.equal(a.eval("root4"),"2");
+	 assert.equal(Mexp.eval("root4"),"2");
   });
   it('checks + precedence before number insise parenthesis ', function () {
-	 assert.equal(a.eval("(-2)"),"-2");
+	 assert.equal(Mexp.eval("(-2)"),"-2");
   });
   it('checks multiple allowable operator', function () {
-	 assert.equal(a.eval("2+++-++-+-+3"),"-1");
-	 assert.equal(a.eval("2*+3"),"6");
+	 assert.equal(Mexp.eval("2+++-++-+-+3"),"-1");
+	 assert.equal(Mexp.eval("2*+3"),"6");
   });
 });
 describe('These expression will check for types of returned result', function () {
   it('should tell to compllete expression', function () {
-    assert.equal(typeof a.eval('0'), 'number')
+    assert.equal(typeof Mexp.eval('0'), 'number')
   });
 });
 describe('These expression will raise error', function () {
   it('should tell to compllete expression', function () {
-	try{
-		a.eval("2*")
-	}
-	catch(e){
-		assert.equal(e.message,"complete the expression")
-	}
+    assert.equal(Mexp.eval("2*").message, "complete the expression")
   });
   it('should warn about multiple operators', function () {
 	try{
-		a.eval("2**3")
+		Mexp.eval("2**3")
 	}
 	catch(e){
 		assert.equal(e.message,"* is not allowed after *")
@@ -146,7 +145,7 @@ describe('These expression will raise error', function () {
   });
   it('should warn about multiple operators', function () {
 	try{
-		a.eval("2*Mod*3")
+		Mexp.eval("2*Mod*3")
 	}
 	catch(e){
 		assert.equal(e.message,"Mod is not allowed after *")
@@ -154,7 +153,7 @@ describe('These expression will raise error', function () {
   });
   it('should warn about operator inside parenthesis', function () {
 	try{
-		a.eval("(+)")
+		Mexp.eval("(+)")
 	}
 	catch(e){
 		assert.equal(e.message,") is not allowed after +")
@@ -162,7 +161,7 @@ describe('These expression will raise error', function () {
   });
   it('should warn about operator inside parenthesis', function () {
 	try{
-		a.eval("(+)")
+		Mexp.eval("(+)")
 	}
 	catch(e){
 		assert.equal(e.message,") is not allowed after +")
@@ -172,6 +171,6 @@ describe('These expression will raise error', function () {
 });
 describe('Check autoclose of parenthesis of parser', function () {
   it('should tell to compllete expression', function () {
-    assert.equal(a.eval("((2+3*4"),"14");
+    assert.equal(Mexp.eval("((2+3*4"),"14");
   });
 });
